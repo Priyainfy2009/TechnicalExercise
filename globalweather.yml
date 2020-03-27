@@ -1,0 +1,107 @@
+openapi: 3.0.1
+info:
+  title: global weather
+  description: Can get cities by country and weather by cities. 
+              Springboot application to expose REST APIS  for weather based application which internally consumes data from
+              SOAP end point. SOAP endpoint acts as stubs here
+  version: '0.1'
+servers:
+  - url: 'http://localhost:9000'   
+paths:
+  /:
+    get:
+      description: landing page where input is received for country
+          parameters:
+	      schema:
+   	  responses:
+           '200':
+            description: Returns html page to browser to keyin input
+            content:
+              text/html;charset=UTF-8:
+               schema:
+         '404':
+          description: >-
+            server is not up and landing page will not be returned
+          content:
+              text/html;charset=UTF-8:
+  paths:
+  /getCities          
+     post:
+      description: will be called on click of search button after keyin country name to fetch list of cities
+          parameters:
+             -name: country
+              in:query
+	      schema:
+              type:string
+              example: Australia
+   	  responses:
+           '200':
+            description: Returns a list of data sets
+            content:
+              text/html;charset=UTF-8:
+               schema:
+                  type: string
+		examples: {
+                {
+		   "country": "Australia",
+                   "cities": "Sydney"
+		 },
+		 {
+		   "country": "Australia",
+		   "cities": "Melbourne"
+    		 },
+		 {
+                   "country": "Australia",
+		   "cities": "Canberra"
+		 }
+		 {
+		   "country": "Australia",
+  		    "cities": "Brisbane"            
+		 }
+		}
+         '404':
+          description: >-
+            No cities available for given country and error page will be returned as response
+          content:
+            text/html;charset=UTF-8:
+              
+paths:
+  /getWeather          
+     post:
+      description: will return weather details like wind ,location, skycondition on giving city name and country name as input
+          parameters:
+             -name: 
+		city
+		country
+              in:query
+	      schema:
+              type:string
+              type:string
+              example: 
+              city:Melbourne
+              country:Australia
+   	  responses:
+           '200':
+            description: Returns weather data for giving city and country
+            content:
+              text/html;charset=UTF-8:
+               schema:
+                  type: string
+		examples: 
+                {
+		   "Location": "melbourne",
+                   "Time": "11 AM" ,
+		   "Wind":"15 km per hour",                 
+	           "Visibility":"10km",
+                   "SkyConditions":"sunny",
+                   "Temperature":"18",
+                   "DewPoint":"2 C",
+                   "RelativeHumidity":"35",
+                   "Status":"Normal"
+		}
+         '404':
+          description: >-
+            No weather data available for given data and returns error page
+          content:
+            text/html;charset=UTF-8:
+              
