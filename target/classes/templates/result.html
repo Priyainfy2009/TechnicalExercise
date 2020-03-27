@@ -1,0 +1,14 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of cities - Result page</title>
+</head>
+<body>
+        <h3 style="color:#666699">List of cities in  <span th:text="${country}"></span></h3>
+            <div class="panel-body">
+                <div id="colored" th:each="city:${cities}">
+                    <p th:text="${city.City}"></p>
+                </div>
+            </div>
+</body>
+</html>
